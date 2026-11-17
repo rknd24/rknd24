@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 40 1200 520" width="1200" height="520" role="img" aria-labelledby="t d">
+  <title id="t">Newscrape の構成図</title>
+  <desc id="d">利用者のブラウザは Cloudflare Workers から画面を取得し、Vercel Functions の FastAPI を呼ぶ。FastAPI は Neon の PostgreSQL を読み書きし、記事への質問を Groq API に送る。GitHub Actions の取り込みバッチは30分ごとに Yahoo!ニュースから記事を取得し、Groq API で要約して Neon に保存する。</desc>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", Meiryo, sans-serif; }
+    .title { font-size: 16px; font-weight: 600; fill: #111827; }
+    .sub { font-size: 12.5px; fill: #4B5563; }
+    .group { font-size: 12px; font-weight: 600; fill: #64748B; letter-spacing: .02em; }
+    .label { font-size: 11.5px; fill: #64748B; }
+    .card { fill: #FFFFFF; stroke: #D9DEE7; stroke-width: 1; }
+    .wire { fill: none; stroke: #94A3B8; stroke-width: 1.6; stroke-linejoin: round; stroke-dasharray: 5 6; animation: flow 1.1s linear infinite; }
+    .hand { transform-origin: 456px 450px; animation: turn 8s linear infinite; }
+    @keyframes flow { from { stroke-dashoffset: 22; } to { stroke-dashoffset: 0; } }
+    @keyframes turn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .wire, .hand { animation: none; } }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <rect x="0.5" y="40.5" width="1199" height="519" rx="16" fill="#FFFFFF" stroke="#E5E7EB"/>
+
+  <!-- グループの背景 -->
+  <rect x="260" y="70" width="380" height="240" rx="14" fill="#F1F5FB"/>
+  <text class="group" x="280" y="96">フロントエンドと API</text>
+  <rect x="260" y="370" width="380" height="150" rx="14" fill="#F4F4F2"/>
+  <text class="group" x="280" y="396">GitHub Actions</text>
+
+  <!-- 線（データの流れ） -->
+  <path class="wire" marker-end="url(#arrow)" d="M180 172 H230 V150 H280"/>
+  <path class="wire" marker-end="url(#arrow)" d="M180 198 H230 V250 H280"/>
+  <path class="wire" marker-end="url(#arrow)" d="M620 240 H740"/>
+  <path class="wire" marker-end="url(#arrow)" d="M620 222 H680 V150 H1010"/>
+  <path class="wire" marker-end="url(#arrow)" d="M620 450 H740"/>
+  <path class="wire" marker-end="url(#arrow)" d="M620 432 H690 V270 H740"/>
+  <path class="wire" marker-end="url(#arrow)" d="M560 492 V538 H1095 V192"/>
+
+  <text class="label" x="186" y="164">画面</text>
+  <text class="label" x="186" y="215">API</text>
+  <text class="label" x="656" y="258">読み書き</text>
+  <text class="label" x="800" y="141">記事への質問</text>
+  <text class="label" x="630" y="468">RSS・本文の取得</text>
+  <text class="label" x="698" y="352">保存</text>
+  <text class="label" x="1105" y="360">要約の生成</text>
+
+  <!-- 利用者 -->
+  <rect class="card" x="40" y="150" width="140" height="70" rx="10"/>
+  <rect x="54" y="169" width="32" height="32" rx="8" fill="#475569"/>
+  <rect x="61" y="177" width="18" height="16" rx="2.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+  <path d="M61 182 H79" stroke="#FFFFFF" stroke-width="1.6"/>
+  <text class="title" x="98" y="183">利用者</text>
+  <text class="sub" x="98" y="203">ブラウザ</text>
+
+  <!-- Cloudflare Workers -->
+  <rect class="card" x="280" y="108" width="340" height="84" rx="10"/>
+  <rect x="294" y="134" width="32" height="32" rx="8" fill="#2F6FEB"/>
+  <rect x="301" y="142" width="18" height="12" rx="2" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+  <path d="M306 159 H314 M310 154 V159" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+  <text class="title" x="340" y="146">Cloudflare Workers</text>
+  <text class="sub" x="340" y="168">React + TypeScript の SPA を配信</text>
+
+  <!-- Vercel Functions -->
+  <rect class="card" x="280" y="208" width="340" height="84" rx="10"/>
+  <rect x="294" y="234" width="32" height="32" rx="8" fill="#0F9D8A"/>
+  <path d="M306 243 L301 250 L306 257 M314 243 L319 250 L314 257" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="title" x="340" y="246">Vercel Functions</text>
+  <text class="sub" x="340" y="268">FastAPI（/news・/analyze・/chat）</text>
+
+  <!-- Neon -->
+  <rect class="card" x="740" y="208" width="240" height="84" rx="10"/>
+  <rect x="754" y="234" width="32" height="32" rx="8" fill="#5B5BD6"/>
+  <ellipse cx="770" cy="244" rx="7.5" ry="3" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+  <path d="M762.5 244 V256 A7.5 3 0 0 0 777.5 256 V244 M762.5 250 A7.5 3 0 0 0 777.5 250" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+  <text class="title" x="800" y="246">Neon</text>
+  <text class="sub" x="800" y="268">PostgreSQL（記事と要約）</text>
+
+  <!-- Groq API -->
+  <rect class="card" x="1010" y="108" width="170" height="84" rx="10"/>
+  <rect x="1022" y="134" width="32" height="32" rx="8" fill="#D9822B"/>
+  <path d="M1038 141 L1040.4 147.6 L1047 150 L1040.4 152.4 L1038 159 L1035.6 152.4 L1029 150 L1035.6 147.6 Z" fill="#FFFFFF"/>
+  <text class="title" x="1066" y="146">Groq API</text>
+  <text class="sub" x="1066" y="168">要約と回答の生成</text>
+
+  <!-- テスト -->
+  <rect class="card" x="280" y="408" width="130" height="84" rx="10"/>
+  <rect x="292" y="434" width="32" height="32" rx="8" fill="#475569"/>
+  <path d="M301 450 L306 455 L315 445" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="title" x="334" y="446">テスト</text>
+  <text class="sub" x="334" y="468">push ごと</text>
+
+  <!-- 取り込みバッチ -->
+  <rect class="card" x="426" y="408" width="194" height="84" rx="10"/>
+  <rect x="440" y="434" width="32" height="32" rx="8" fill="#475569"/>
+  <circle cx="456" cy="450" r="8.5" fill="none" stroke="#FFFFFF" stroke-width="1.6"/>
+  <path d="M456 450 V445.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+  <path class="hand" d="M456 450 L456 443.5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+  <text class="title" x="486" y="446">取り込みバッチ</text>
+  <text class="sub" x="486" y="468">30分ごと</text>
+
+  <!-- Yahoo!ニュース -->
+  <rect class="card" x="740" y="408" width="240" height="84" rx="10"/>
+  <rect x="754" y="434" width="32" height="32" rx="8" fill="#6B7280"/>
+  <path d="M762 444 H778 M762 450 H778 M762 456 H772" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round"/>
+  <text class="title" x="800" y="446">Yahoo!ニュース</text>
+  <text class="sub" x="800" y="468">RSS・記事ページ</text>
+</svg>
