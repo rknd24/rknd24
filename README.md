@@ -15,7 +15,7 @@
 
 **[公開URL](https://newscrape-front.rknd24.workers.dev/)**（ログイン不要）｜2026年4月〜、個人開発
 
-自分と母が使って気づいた不便を、設計の変更で直してきました。設計の判断と、AIとの分担は [README](https://github.com/rknd24/Newscrape#readme) に書いています。
+自分と母、友達が使って気づいた不便を、設計の変更で直してきました。設計の判断と、AIとの分担は [README](https://github.com/rknd24/Newscrape#readme) に書いています。
 
 ### [WebCraft](https://github.com/rknd24/webcraft)　Web技術を4択で学ぶ学習アプリ（開発中）
 
